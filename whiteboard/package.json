@@ -9,7 +9,8 @@
   ],
   "dependencies": {
     "express": "4.9.x",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "cookie-parser": ""
   },
   "scripts": {
     "start": "node index"
