@@ -1,5 +1,6 @@
 
 const express = require('express');
+var cookieParser = require('cookie-parser')
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -7,7 +8,7 @@ const port = process.env.PORT || 3000;
 
 // generate a random ID
 // need cookieParser middleware before we can do anything with cookies
-app.use(express.cookieParser());
+app.use(cookieParser());
 
 app.use(function (req, res, next) {
   // check if client sent cookie
@@ -25,7 +26,9 @@ app.use(function (req, res, next) {
   else
   {
     // yes, cookie was already present
-    console.log('cookie exists', cookie);
+    var myid = process.env.HOSTNAME;
+    res.cookie('sessid', myid, { maxAge: 900000, httpOnly: true });
+    console.log('cookie exists', res.cookie);
   }
   next(); // <-- important!
 });
